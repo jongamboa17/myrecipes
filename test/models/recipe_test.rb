@@ -5,13 +5,19 @@ class RecipeTest < ActiveSupport::TestCase
   #Create an object with all the requirements that you want, name:(x characters, must be present ), summary: , description: 
   #Assign that object to an instance variable
   def setup
-    @recipe = Recipe.new(name: "Rice and Chicken",summary: "The best rice and chicken ever", description: "mix rice and chicken and cooks for 40 minutes at 20 degrees celsious" )
+   @chef= Chef.create(chefname: "Jonathan", email: "jongamboa17@gmail.com")
+    @recipe = @chef.recipes.build(name: "Rice and Chicken",summary: "The best rice and chicken ever", description: "mix rice and chicken and cooks for 40 minutes at 20 degrees celsious" )
   end
  
  #create the tests
  test "recipe should be valid" do
    assert @recipe.valid?
  end
+ 
+ test "chef_id should be present" do 
+  @recipe.chef_id= nil
+  assert_not @recipe.valid?
+end
  
  test "name should be present" do 
    @recipe.name = " "
